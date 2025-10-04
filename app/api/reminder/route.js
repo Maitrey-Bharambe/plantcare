@@ -6,15 +6,14 @@ import nodemailer from "nodemailer";
 // Supabase client
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY // service role key for inserts
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Configure Nodemailer (use Gmail or any SMTP provider)
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // your email
-    pass: process.env.EMAIL_PASS, // your app password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 

@@ -44,15 +44,16 @@ export default function Home() {
   useEffect(() => {
     if (!userId) return;
     const fetchMessages = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("messages")
         .select("*")
         .eq("user_id", userId)
-        .order("created_at", { ascending: true })
+        .order("created_at", { ascending: false }) // Most recent first
         .limit(3);
 
       if (data) {
-        const formatted = data.map((m) => ({
+        // Reverse to show oldest first if you want
+        const formatted = data.reverse().map((m) => ({
           id: m.id,
           sender: "bot",
           text: m.response,
@@ -97,7 +98,7 @@ export default function Home() {
   };
 
   return (
-    <div className="chatbot bg-[#F8D4C8] overflow-y-scroll p-8 min-h-screen flex justify-center items-center relative text-center">
+    <div className="chatbot bg-[#F8D4C8] p-8 min-h-screen flex justify-center items-center relative text-center">
       <Navbar />
 
       <div className="absolute inset-0 flex justify-center items-center z-0 pointer-events-none">
@@ -129,7 +130,8 @@ export default function Home() {
           Chatbot
         </h1>
 
-        <div className="flex flex-col flex-grow overflow-y-auto mb-6 space-y-4">
+        {/* Make only this div scrollable */}
+        <div className="flex flex-col flex-grow overflow-y-auto mb-6 space-y-4 max-h-[60vh] chat-scrollbar">
           {messages.map(({ id, sender, text }) => (
             <div
               key={id}

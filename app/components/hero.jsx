@@ -21,6 +21,7 @@ const plantImages = [Plant1, Plant2, Plant3, Plant4];
 
 export default function Hero({ title, description, imageUrl }) {
   const [currentImage, setCurrentImage] = useState(0);
+  const router = useRouter(); // <-- Add this line
 
   // This function updates the image index based on animation progress
   const handleImageSwitch = ({ y }) => {
@@ -61,7 +62,10 @@ export default function Hero({ title, description, imageUrl }) {
         <div className="text-left text-[#FBF7F5] md:w-1/2 w-full mb-6 md:mb-0 flex flex-col justify-center space-y-8">
           <div className="text-4xl font-bold">Why Choose PlantCare?</div>
           <div className="flex flex-col gap-6">
-            <div className="feature-card p-4 bg-green-800 rounded-lg shadow-md flex items-start gap-4">
+            <div
+              className="feature-card p-4 bg-[#528127] rounded-lg shadow-md flex items-start gap-4 cursor-pointer"
+              onClick={() => router.push("/reminder")}
+            >
               <FaWater className="text-green-300 text-4xl mt-1" />
               <div>
                 <h3 className="text-xl font-semibold">Smart Reminders</h3>
@@ -71,22 +75,23 @@ export default function Hero({ title, description, imageUrl }) {
                 </p>
               </div>
             </div>
-            <div className="feature-card p-4 bg-green-800 rounded-lg shadow-md flex items-start gap-4">
+            <div
+              className="feature-card p-4 bg-[#528127] rounded-lg shadow-md flex items-start gap-4 cursor-pointer"
+              onClick={() => router.push("/chatbot")}
+            >
               <FaRobot className="text-green-300 text-4xl mt-1" />
               <div>
-                <h3
-                  className="text-xl font-semibold"
-                  onClick={() => router.push("/chatbot")}
-                >
-                  AI Plant Assistant
-                </h3>
+                <h3 className="text-xl font-semibold">AI Plant Assistant</h3>
                 <p className="text-green-200">
                   Upload photos and get instant care tips using our smart AI
                   chatbot.
                 </p>
               </div>
             </div>
-            <div className="feature-card p-4 bg-green-800 rounded-lg shadow-md flex items-start gap-4">
+            <div
+              className="feature-card p-4 bg-[#528127] rounded-lg shadow-md flex items-start gap-4 cursor-pointer"
+              onClick={() => router.push("/dashboard")}
+            >
               <FaLeaf className="text-green-300 text-4xl mt-1" />
               <div>
                 <h3 className="text-xl font-semibold">Easy Setup</h3>
