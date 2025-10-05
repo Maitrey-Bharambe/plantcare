@@ -5,6 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import SplitText from "../components/SplitText";
+import Navbar from "../components/navbar";
+const handleAnimationComplete = () => {
+  console.log("All letters have animated!");
+}
 
 // 🌿 Consistent Palette
 const palette = {
@@ -51,7 +56,6 @@ export default function DashboardPage() {
       if (error) console.error(error);
       else setPlants(data || []);
 
-      setLoading(false);
     };
 
     getData();
@@ -88,279 +92,335 @@ export default function DashboardPage() {
   };
 
   return (
-    <div
-      style={{ background: palette.peach, minHeight: "100vh", width: "100vw" }}
-      className="overflow-x-hidden"
-    >
-      <AnimatePresence>
-        {loading ? (
-          // 🌿 Loader with growth animation
+    <div className="dashboard bg-[#F8D4C8] overflow-y-scroll p-8 min-h-screen flex justify-center items-center relative text-center">
+      <Navbar />
+      <div className="absolute inset-0 flex jusify-center items-center z-0 pointer-events-none">
+        <div className="overflow-hidden max-h-[225px] w-full">
+          <SplitText
+            text="PlantCare"
+            className="text-[200px] text-[#2D411B] font-semibold"
+            delay={75}
+            duration={0.5}
+            ease={[0.42, 0, 1, 1]}
+            splitType="chars"
+            from={{ opacity: 1, y: 200 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-100px"
+            textAlign="center"
+            onLetterAnimationComplete={handleAnimationComplete}
+          />
+        </div>
+      </div>
           <motion.div
-            key="loader"
-            className="flex items-center justify-center h-screen flex-col"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8 } }}
-          >
-            <motion.div
-              initial={{ scale: 0, y: 50 }}
-              animate={{ scale: 1.2, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="text-6xl"
-            >
-              🌱
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1, duration: 1 }}
-              className="text-7xl"
-            >
-              🌿
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2, duration: 1 }}
-              className="text-8xl"
-            >
-              🌳
-            </motion.div>
-            <motion.p
-              className="mt-6 text-xl font-bold"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.5 }}
-              style={{ color: palette.darkOlive }}
-            >
-              Growing your PlantCare Dashboard...
-            </motion.p>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="dashboard"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-          >
-            {/* Header */}
-            <header
-              style={{
-                background: palette.peach,
-                borderBottom: `2px solid ${palette.sage}`,
-                padding: "32px 0 14px",
-              }}
-              className="flex justify-between items-center px-12"
-            >
-              <div className="flex items-center gap-6">
-                {/* 🌿 Back Button */}
-                <motion.button
-                  whileHover={{ scale: 1.1, boxShadow: "0 0 10px #a4b787" }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{
-                    background: palette.beige,
-                    color: palette.darkOlive,
-                    padding: "8px 20px",
-                    fontWeight: 600,
-                    borderRadius: 14,
-                    border: "none",
-                    fontSize: 16,
-                    cursor: "pointer",
-                  }}
-                  onClick={() => router.push("/")}
+                  initial={{ opacity: 1, y: 1000 }}
+                  animate={{ opacity: 1, y: 20 }}
+                  transition={{ duration: 1.5, ease: [0.3, 0, 0, 1], delay: 0.7 }}
+                  className="z-10 rounded-[25px] min-h-[85vh] bg-[#2D411B] overflow-hidden shadow-lg w-full flex"
                 >
-                  ← Back
-                </motion.button>
+            {/* Left Sidebar Panel */}
+            <div
+              style={{
+                background: palette.fern,
+                width: '320px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '48px 32px',
+                borderTopLeftRadius: '25px',
+                borderBottomLeftRadius: '25px',
+                position: 'relative'
+              }}
+            >
+              {/* Back Button - Top Left */}
+              <motion.button
+                whileHover={{ scale: 1.1, boxShadow: "0 0 10px #a4b787" }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  background: palette.beige,
+                  color: palette.darkOlive,
+                  padding: "8px 20px",
+                  fontWeight: 600,
+                  borderRadius: 14,
+                  border: "none",
+                  fontSize: 14,
+                  cursor: "pointer",
+                  position: 'absolute',
+                  top: '24px',
+                  left: '24px'
+                }}
+                onClick={() => router.push("/")}
+              >
+                ← Back
+              </motion.button>
+
+              {/* Logout Button - Top Right */}
+              <motion.button
+                whileHover={{ scale: 1.1, boxShadow: "0 0 20px #a4b787" }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  background: palette.sage,
+                  color: palette.darkOlive,
+                  padding: "8px 20px",
+                  fontWeight: 600,
+                  borderRadius: 14,
+                  border: "none",
+                  fontSize: 14,
+                  cursor: "pointer",
+                  position: 'absolute',
+                  top: '24px',
+                  right: '24px'
+                }}
+                onClick={handleLogout}
+              >
+                Log out
+              </motion.button>
+
+              {/* Centered Content */}
+              <div className="text-center space-y-6">
                 <motion.h1
                   style={{
                     color: palette.darkOlive,
                     fontWeight: 700,
-                    fontSize: "2rem",
+                    fontSize: "2.2rem",
                     letterSpacing: 1,
+                    marginBottom: '24px'
                   }}
                   initial={{ x: -50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.7 }}
                 >
-                  PlantCare Dashboard🌱
+                  PlantCare
+                  <br />
+                  Dashboard
                 </motion.h1>
-              </div>
-              <div className="flex items-center gap-7">
-                <span style={{ color: palette.clay, fontSize: 20 }}>
-                  Hi, {user?.email}
-                </span>
-                <motion.button
-                  whileHover={{ scale: 1.1, boxShadow: "0 0 20px #a4b787" }}
-                  whileTap={{ scale: 0.95 }}
+                
+                <div 
                   style={{
-                    background: palette.sage,
-                    color: palette.darkOlive,
-                    padding: "11px 32px",
-                    fontWeight: 600,
-                    borderRadius: 18,
-                    border: "none",
+                    padding: '20px',
+                    background: 'rgba(255,255,255,0.3)',
+                    borderRadius: '16px',
+                    marginTop: '32px'
+                  }}
+                >
+                  <p style={{ 
+                    color: palette.clay, 
                     fontSize: 18,
-                    cursor: "pointer",
-                  }}
-                  onClick={handleLogout}
-                >
-                  Log out
-                </motion.button>
-              </div>
-            </header>
-
-            {/* Plant Section */}
-            <main className="mx-auto w-full max-w-6xl p-8 mt-10">
-              <div className="flex justify-between items-center">
-                <h2
-                  style={{
-                    color: palette.darkOlive,
-                    fontSize: 26,
-                    fontWeight: 800,
-                    marginBottom: 24,
-                    letterSpacing: 1,
-                  }}
-                >
-                  Your Plants
-                </h2>
-                <motion.button
-                  whileHover={{ scale: 1.1, rotate: 2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setShowForm(true)}
-                  style={{
-                    background: palette.fern,
-                    color: palette.darkOlive,
-                    padding: "10px 22px",
-                    fontWeight: 700,
-                    borderRadius: 14,
-                    border: "none",
+                    fontWeight: 600,
+                    marginBottom: '8px'
+                  }}>
+                    Welcome back! 👋
+                  </p>
+                  <p style={{ 
+                    color: palette.darkOlive, 
                     fontSize: 16,
-                    cursor: "pointer",
-                  }}
-                >
-                  ➕ Add Plant
-                </motion.button>
+                    wordBreak: 'break-word'
+                  }}>
+                    {user?.email}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Main Dashboard Panel */}
+            <div className="flex-1 flex flex-col">
+              {/* Header Section */}
+              <div 
+                style={{
+                  padding: '32px 40px 24px',
+                  borderBottom: `1px solid rgba(164, 183, 135, 0.2)`
+                }}
+              >
+                <div className="flex justify-between items-center">
+                  <h2
+                    style={{
+                      color: palette.white,
+                      fontSize: 32,
+                      fontWeight: 800,
+                      letterSpacing: 1,
+                      margin: 0
+                    }}
+                  >
+                    Your Plants
+                  </h2>
+                  <motion.button
+                    whileHover={{ scale: 1.05, rotate: 1 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowForm(true)}
+                    style={{
+                      background: palette.fern,
+                      color: palette.darkOlive,
+                      padding: "12px 24px",
+                      fontWeight: 700,
+                      borderRadius: 16,
+                      border: "none",
+                      fontSize: 16,
+                      cursor: "pointer",
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    }}
+                  >
+                    ➕ Add Plant
+                  </motion.button>
+                </div>
               </div>
 
-              {plants.length === 0 ? (
-                <p style={{ color: palette.gray }}>No plants added yet 🌱</p>
-              ) : (
-                <div
-                  className="grid gap-10"
-                  style={{
-                    gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-                  }}
-                >
-                  {plants.map((plant) => (
-                    <motion.div
-                      key={plant.id}
-                      whileHover={{
-                        scale: 1.05,
-                        rotate: 0.5,
-                        boxShadow: "0 0 35px rgba(145,217,37,0.5)",
-                      }}
-                      whileTap={{ scale: 0.97 }}
-                      transition={{ type: "spring", stiffness: 180 }}
+              {/* Content Section */}
+              <div className="flex-1 p-8">
+                {plants.length === 0 ? (
+                  <div 
+                    className="flex flex-col items-center justify-center h-full"
+                    style={{
+                      minHeight: '400px'
+                    }}
+                  >
+                    <div 
                       style={{
-                        background: palette.darkOlive,
-                        borderRadius: 26,
-                        overflow: "hidden",
-                        display: "flex",
-                        flexDirection: "column",
-                        minHeight: 370,
-                        position: "relative",
+                        background: 'rgba(255,255,255,0.05)',
+                        borderRadius: '24px',
+                        padding: '48px',
+                        textAlign: 'center',
+                        border: '2px dashed rgba(164, 183, 135, 0.3)'
                       }}
                     >
-                      {/* 🌿 Animated Shine Effect */}
+                      <div style={{ fontSize: '64px', marginBottom: '16px' }}>🌱</div>
+                      <p style={{ 
+                        color: palette.beige, 
+                        fontSize: 24,
+                        fontWeight: 600,
+                        marginBottom: '8px'
+                      }}>
+                        No plants added yet
+                      </p>
+                      <p style={{ 
+                        color: palette.sage, 
+                        fontSize: 16
+                      }}>
+                        Start building your plant collection!
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="grid gap-8"
+                    style={{
+                      gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                    }}
+                  >
+                    {plants.map((plant) => (
                       <motion.div
-                        className="absolute top-0 left-0 w-full h-full"
-                        style={{
-                          background:
-                            "linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)",
+                        key={plant.id}
+                        whileHover={{
+                          scale: 1.03,
+                          rotate: 0.5,
+                          boxShadow: "0 8px 35px rgba(145,217,37,0.3)",
                         }}
-                        initial={{ x: "-100%" }}
-                        animate={{ x: "200%" }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 5,
-                          ease: "linear",
-                        }}
-                      />
-
-                      <div
+                        whileTap={{ scale: 0.97 }}
+                        transition={{ type: "spring", stiffness: 180 }}
                         style={{
-                          width: "100%",
-                          height: 210,
+                          background: palette.white,
+                          borderRadius: 20,
+                          overflow: "hidden",
+                          display: "flex",
+                          flexDirection: "column",
+                          minHeight: 370,
                           position: "relative",
+                          boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
                         }}
                       >
-                        <Image
-                          src={plant.img || "/plants/default.jpg"}
-                          alt={plant.name}
-                          fill
+                        {/* 🌿 Animated Shine Effect */}
+                        <motion.div
+                          className="absolute top-0 left-0 w-full h-full"
                           style={{
-                            objectFit: "cover",
-                            borderTopLeftRadius: 26,
-                            borderTopRightRadius: 26,
+                            background:
+                              "linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)",
+                            zIndex: 10,
+                            pointerEvents: 'none'
+                          }}
+                          initial={{ x: "-100%" }}
+                          animate={{ x: "200%" }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 6,
+                            ease: "linear",
                           }}
                         />
-                      </div>
-                      <div style={{ padding: "24px 22px 18px" }}>
-                        <h3
-                          style={{
-                            color: palette.white,
-                            fontWeight: 700,
-                            fontSize: 22,
-                            marginBottom: 10,
-                          }}
-                        >
-                          {plant.name}
-                        </h3>
+
                         <div
                           style={{
-                            color: palette.beige,
-                            fontSize: 16,
-                            marginBottom: 13,
+                            width: "100%",
+                            height: 210,
+                            position: "relative",
                           }}
                         >
-                          Last watered:{" "}
-                          {new Date(plant.last_watered).toLocaleDateString()}
+                          <Image
+                            src={plant.img || "/plants/default.jpg"}
+                            alt={plant.name}
+                            fill
+                            style={{
+                              objectFit: "cover",
+                            }}
+                          />
                         </div>
-                        <motion.span
-                          whileHover={{ scale: 1.2, rotate: -3 }}
-                          style={{
-                            background: palette.fern,
-                            color: palette.darkOlive,
-                            borderRadius: 8,
-                            padding: "5px 17px",
-                            fontWeight: 700,
-                            fontSize: 15,
-                            display: "inline-block",
-                          }}
-                        >
-                          {plant.status || "Healthy"}
-                        </motion.span>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-            </main>
+                        <div style={{ padding: "24px 22px 20px" }}>
+                          <h3
+                            style={{
+                              color: palette.darkOlive,
+                              fontWeight: 700,
+                              fontSize: 22,
+                              marginBottom: 12,
+                            }}
+                          >
+                            {plant.name}
+                          </h3>
+                          <div
+                            style={{
+                              color: palette.gray,
+                              fontSize: 14,
+                              marginBottom: 16,
+                            }}
+                          >
+                            Last watered:{" "}
+                            {new Date(plant.last_watered).toLocaleDateString()}
+                          </div>
+                          <motion.span
+                            whileHover={{ scale: 1.1, rotate: -2 }}
+                            style={{
+                              background: palette.fern,
+                              color: palette.darkOlive,
+                              borderRadius: 10,
+                              padding: "6px 16px",
+                              fontWeight: 700,
+                              fontSize: 14,
+                              display: "inline-block",
+                            }}
+                          >
+                            {plant.status || "Healthy"}
+                          </motion.span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
 
             {/* Modal for Add Plant */}
             <AnimatePresence>
               {showForm && (
                 <motion.div
-                  className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                  className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 backdrop-blur filter"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
                   <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
+                    initial={{ opacity: 1, y: 1000 }}
+                    animate={{ opacity: 1, y: 20 }}
                     exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: [0.3, 0, 0, 1], delay: 0 }}
                     style={{
-                      background: palette.white,
+                      background: palette.peach,
                       padding: "32px 28px",
                       borderRadius: 22,
                       width: 400,
@@ -388,7 +448,7 @@ export default function DashboardPage() {
                         onChange={(e) =>
                           setNewPlant({ ...newPlant, name: e.target.value })
                         }
-                        className="border p-2 rounded-lg"
+                        className="border border-black p-2 rounded-lg text-black"
                         required
                       />
                       <input
@@ -398,37 +458,31 @@ export default function DashboardPage() {
                         onChange={(e) =>
                           setNewPlant({ ...newPlant, img: e.target.value })
                         }
-                        className="border p-2 rounded-lg"
+                        className="border border-black p-2 rounded-lg text-black"
                       />
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         type="submit"
-                        style={{
-                          background: palette.fern,
-                          color: palette.darkOlive,
-                          padding: "10px",
-                          fontWeight: 700,
-                          borderRadius: 10,
-                        }}
+                        className="text-[#414d28] p-2.5 font-bold rounded-lg border-4 border-[#91d925] rounded-lg px-4 py-2 hover:bg-[#91d925] hover:text-white transition"
                       >
                         Save Plant 🌿
                       </motion.button>
-                      <button
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         type="button"
                         onClick={() => setShowForm(false)}
-                        className="mt-2 text-red-500 font-bold"
+                        className="mt-2 text-red-500 font-bold border-4 border-red-500 rounded-lg px-4 py-2 hover:bg-red-500 hover:text-white transition"
                       >
                         Cancel
-                      </button>
+                      </motion.button>
                     </form>
                   </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

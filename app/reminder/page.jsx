@@ -116,56 +116,113 @@ export default function Home() {
         initial={{ y: 1000 }}
         animate={{ y: 20 }}
         transition={{ duration: 1.5, ease: [0.3, 0, 0, 1], delay: 0.7 }}
-        className="flex flex-col rounded-[25px] bg-[#2D411B] p-6 md:p-12 shadow-lg overflow-hidden min-h-[85vh] w-full mx-auto text-left"
+        className="flex items-center justify-center rounded-[25px] bg-[#2D411B] p-6 md:p-12 shadow-lg overflow-hidden h-[85vh] w-full mx-auto"
       >
-        <h1 className="text-[40px] font-bold text-[#FBF7F5] mb-8 text-center">
-          Water Reminder Settings
-        </h1>
-
-        {!user ? (
-          <div className="text-[#FBF7F5] text-center">
-            Please log in to set reminders.
+        <div className="w-full max-w-2xl">
+          {/* Header Section */}
+          <div className="text-center mb-5">
+            <h1 className="text-[48px] font-bold text-[#FBF7F5]">
+              Water Reminder Settings
+            </h1>
           </div>
-        ) : (
-          <>
-            <label className="block mb-6 text-[#FBF7F5] font-semibold">
-              Reminder Time:
-              <input
-                type="time"
-                value={reminderTime}
-                onChange={(e) => setReminderTime(e.target.value)}
-                className="mt-2 w-full rounded-lg p-3 text-white border-s-white"
-              />
-            </label>
 
-            <div className="mb-6">
-              <p className="text-[#FBF7F5] font-semibold mb-2">Select Days:</p>
-              <div className="flex flex-wrap gap-3">
-                {Object.keys(reminderDays).map((day) => (
-                  <button
-                    key={day}
-                    onClick={() => toggleDay(day)}
-                    className={`px-4 py-2 rounded-lg font-semibold transition ${
-                      reminderDays[day]
-                        ? "bg-[#F8D4C8] text-[#2D411B]"
-                        : "bg-[#4A6B2F] text-[#FBF7F5]"
-                    }`}
-                  >
-                    {day.charAt(0).toUpperCase() + day.slice(1)}
-                  </button>
-                ))}
+          {!user ? (
+            <div className="text-center">
+              <div className="bg-[rgba(255,255,255,0.1)] backdrop-blur-sm border border-[rgba(255,255,255,0.2)] rounded-2xl p-8">
+                <div className="text-6xl mb-4">🔒</div>
+                <p className="text-[#FBF7F5] text-xl font-medium">
+                  Please log in to set reminders.
+                </p>
               </div>
             </div>
+          ) : (
+            <div className="bg-[rgba(255,255,255,0.05)] backdrop-blur-sm border border-[rgba(255,255,255,0.1)] rounded-2xl p-8 shadow-xl">
+              {/* Reminder Time Section */}
+              <div className="mb-10">
+                <div className="text-center mb-6">
+                  <h2 className="text-[#FBF7F5] text-2xl font-semibold mb-2">
+                    ⏰ Reminder Time
+                  </h2>
+                  <p className="text-[#FBF7F5] opacity-80 text-sm">
+                    Choose when you'd like to be reminded
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <div className="bg-[rgba(255,255,255,0.1)] rounded-xl p-4 border border-[rgba(255,255,255,0.2)]">
+                    <input
+                      type="time"
+                      value={reminderTime}
+                      onChange={(e) => setReminderTime(e.target.value)}
+                      className="bg-transparent text-[#FBF7F5] text-2xl font-bold border-none outline-none cursor-pointer text-center w-32"
+                    />
+                  </div>
+                </div>
+              </div>
 
-            <button
-              onClick={handleSave}
-              disabled={loading}
-              className="bg-[#F8D4C8] hover:bg-[#e6b9a7] transition text-[#2D411B] rounded-lg px-6 py-3 font-semibold mx-auto block"
-            >
-              {loading ? "Saving..." : "Save Settings"}
-            </button>
-          </>
-        )}
+              {/* Divider */}
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent mb-10"></div>
+
+              {/* Select Days Section */}
+              <div className="mb-10">
+                <div className="text-center mb-6">
+                  <h2 className="text-[#FBF7F5] text-2xl font-semibold mb-2">
+                    📅 Select Days
+                  </h2>
+                  <p className="text-[#FBF7F5] opacity-80 text-sm">
+                    Pick the days for your reminders
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+                  {Object.keys(reminderDays).map((day) => (
+                    <motion.button
+                      key={day}
+                      onClick={() => toggleDay(day)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`h-14 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg ${
+                        reminderDays[day]
+                          ? "bg-[#F8D4C8] text-[#2D411B] shadow-[#F8D4C8]/30"
+                          : "bg-[#4A6B2F] text-[#FBF7F5] hover:bg-[#5A7B3F] shadow-[#4A6B2F]/30"
+                      }`}
+                    >
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <span className="font-bold">
+                          {day.slice(0, 3).toUpperCase()}
+                        </span>
+                        <span className="text-xs opacity-80">
+                          {day.charAt(0).toUpperCase() + day.slice(1, 3)}
+                        </span>
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Save Button Section */}
+              <div className="text-center pt-4">
+                <motion.button
+                  onClick={handleSave}
+                  disabled={loading}
+                  whileHover={{ scale: loading ? 1 : 1.02 }}
+                  whileTap={{ scale: loading ? 1 : 0.98 }}
+                  className="bg-[#F8D4C8] hover:bg-[#e6b9a7] transition-all duration-200 text-[#2D411B] rounded-xl px-12 py-4 font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 border-2 border-[#2D411B] border-t-transparent rounded-full animate-spin"></div>
+                      Saving...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span>💾</span>
+                      Save Settings
+                    </div>
+                  )}
+                </motion.button>
+              </div>
+            </div>
+          )}
+        </div>
       </motion.div>
     </div>
   );

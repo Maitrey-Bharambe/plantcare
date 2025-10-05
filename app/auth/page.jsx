@@ -33,11 +33,11 @@ export default function AuthPage() {
     >
       <div
         className="w-full max-w-sm shadow-lg rounded-xl p-6"
-        style={{ backgroundColor: "#FBF7F5" }} // neutral light card
+        style={{ backgroundColor: "#2D411B" }} // neutral light card
       >
         <h2
           className="text-2xl font-bold text-center mb-6"
-          style={{ color: "#2D411B" }} // primary color
+          style={{ color: "#ffffffff" }} // primary color
         >
           {isLogin ? "Login" : "Sign Up"}
         </h2>
@@ -69,19 +69,20 @@ export default function AuthPage() {
           onClick={handleAuth}
           className="w-full py-2 rounded-lg transition"
           style={{
-            backgroundColor: "#2D411B", // primary
-            color: "#FBF7F5", // light neutral text
+            backgroundColor: "#F8D4C8", // primary
+            color: "#000000ff", // light neutral text
+            fontWeight: "bold",
           }}
           onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor = "#4A5E2B")
+            (e.currentTarget.style.backgroundColor = "#F8D4C8")
           }
           onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor = "#2D411B")
+            (e.currentTarget.style.backgroundColor = "#F8D4C8")
           }
           onMouseDown={(e) =>
-            (e.currentTarget.style.backgroundColor = "#1E2B14")
+            (e.currentTarget.style.backgroundColor = "#F8D4C8")
           }
-          onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#4A5E2B")}
+          onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#F8D4C8")}
         >
           {isLogin ? "Login" : "Sign Up"}
         </button>
