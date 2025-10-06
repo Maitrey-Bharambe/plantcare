@@ -126,7 +126,7 @@ export default function Home() {
         transition={{ duration: 1.5, ease: [0.3, 0, 0, 1], delay: 0.7 }}
         className="flex items-center justify-center rounded-[25px] bg-[#2D411B] p-6 md:p-12 shadow-lg overflow-hidden h-[85vh] w-full mx-auto"
       >
-        <div className="w-fullflex flex-col">
+        <div className="w-full h-full flex flex-col">
           {/* Chat Header */}
           <div className="flex items-center justify-between p-6 border-b border-[rgba(255,255,255,0.1)] flex-shrink-0">
             <div className="flex items-center gap-3">
