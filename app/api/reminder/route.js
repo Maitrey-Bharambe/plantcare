@@ -25,7 +25,7 @@ export async function POST(req) {
     // 1. Save reminder in Supabase
     const { error } = await supabase
       .from("reminders")
-      .insert([{ user_id, reminder_time, reminder_days }]);
+      .insert([{ user_id, reminder_time, reminder_days, email }]);
 
     if (error) {
       console.error("DB Error:", error);

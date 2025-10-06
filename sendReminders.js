@@ -41,7 +41,7 @@ cron.schedule("* * * * *", async () => {
       from: process.env.EMAIL_USER,
       to: reminder.email,
       subject: "🌱 PlantCare - Time to Water Your Plants!",
-      text: `It's ${currentTime}! Time to water your plants!`,
+      text: `It's ${currentTime}! Hey plant parent! 🌼 Your green babies are feeling a little thirsty—time for some love and water ❤️`,
     });
     console.log(`Sent reminder to ${reminder.email}`);
   }

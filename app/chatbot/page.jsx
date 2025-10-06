@@ -97,7 +97,7 @@ export default function Home() {
     }
   };
 
-    return (
+  return (
     <div className="settings-page bg-[#F8D4C8] min-h-screen p-8 flex flex-col justify-center items-center relative text-center">
       <Navbar />
 
@@ -156,7 +156,8 @@ export default function Home() {
                       Welcome to Plant Care Chat!
                     </h3>
                     <p className="text-[#FBF7F5] opacity-70">
-                      Start a conversation by asking about plant care, watering schedules, or plant health issues.
+                      Start a conversation by asking about plant care, watering
+                      schedules, or plant health issues.
                     </p>
                   </div>
                 </div>
@@ -167,30 +168,40 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className={`flex ${sender === "user" ? "justify-end" : "justify-start"}`}
+                    className={`flex ${
+                      sender === "user" ? "justify-end" : "justify-start"
+                    }`}
                   >
-                    <div className={`flex items-start gap-3 max-w-[75%] ${sender === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                    <div
+                      className={`flex items-start gap-3 max-w-[75%] ${
+                        sender === "user" ? "flex-row-reverse" : "flex-row"
+                      }`}
+                    >
                       {/* Avatar */}
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        sender === "user" 
-                          ? "bg-[#F8D4C8]" 
-                          : "bg-[#4A6B2F]"
-                      }`}>
-                        <span className={`text-sm ${
-                          sender === "user" 
-                            ? "text-[#2D411B]" 
-                            : "text-[#FBF7F5]"
-                        }`}>
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                          sender === "user" ? "bg-[#F8D4C8]" : "bg-[#4A6B2F]"
+                        }`}
+                      >
+                        <span
+                          className={`text-sm ${
+                            sender === "user"
+                              ? "text-[#2D411B]"
+                              : "text-[#FBF7F5]"
+                          }`}
+                        >
                           {sender === "user" ? "👤" : "🤖"}
                         </span>
                       </div>
-                      
+
                       {/* Message Bubble */}
-                      <div className={`p-4 rounded-2xl shadow-lg ${
-                        sender === "user"
-                          ? "bg-[#F8D4C8] text-[#2D411B] rounded-tr-sm"
-                          : "bg-[#4A6B2F] text-[#FBF7F5] rounded-tl-sm"
-                      }`}>
+                      <div
+                        className={`p-4 rounded-2xl shadow-lg ${
+                          sender === "user"
+                            ? "bg-[#F8D4C8] text-[#2D411B] rounded-tr-sm"
+                            : "bg-[#4A6B2F] text-[#FBF7F5] rounded-tl-sm"
+                        }`}
+                      >
                         <p className="text-sm leading-relaxed whitespace-pre-wrap">
                           {text}
                         </p>
@@ -215,12 +226,22 @@ export default function Home() {
                     className="w-full bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.2)] rounded-2xl p-4 pr-12 text-[#FBF7F5] placeholder:text-[#FBF7F5] placeholder:opacity-50 focus:outline-none focus:ring-2 focus:ring-[#F8D4C8] focus:border-transparent resize-none"
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FBF7F5] opacity-30">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                      />
                     </svg>
                   </div>
                 </div>
-                
+
                 <motion.button
                   onClick={handleSend}
                   disabled={!input.trim()}
@@ -229,12 +250,22 @@ export default function Home() {
                   className="bg-[#F8D4C8] text-[#2D411B] rounded-2xl px-6 py-4 font-semibold hover:bg-[#e6b9a7] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
                 >
                   <span>Send</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                    />
                   </svg>
                 </motion.button>
               </div>
-              
+
               {/* Typing Indicator */}
               <div className="flex items-center gap-2 mt-3 text-[#FBF7F5] opacity-50 text-sm">
                 <div className="w-2 h-2 bg-[#F8D4C8] rounded-full"></div>

@@ -6,13 +6,15 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "type": "module"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@splinetool/react-spline": "^4.1.0",
     "@splinetool/runtime": "^1.10.70",
     "@supabase/supabase-js": "^2.58.0",
+    "dotenv": "^17.2.3",
     "framer-motion": "^12.23.20",
     "groq-sdk": "^0.33.0",
     "gsap": "^3.13.0",
