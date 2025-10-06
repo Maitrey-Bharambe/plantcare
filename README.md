@@ -85,7 +85,7 @@ plantcare-web/
 └── README.md
 ```
 
----
+````
 
 ## 🌼 How It Works
 
@@ -114,15 +114,17 @@ plantcare-web/
 
 ---
 
-## 👨‍💻 Developer
+## 👨‍💻 Developers
 
 **Maitrey Bharambe**
-📘 Computer Engineering Student — Vidyalankar Institute of Technology
-💡 Passionate about building smart, animated web apps with real-time features.
+**Atharva Sheramkar**
+**Sarvesh Thakur**
+**Parth Mandhare**
+
 
 
 ---
 
 ### 🌟 If you like this project, don’t forget to give it a star on GitHub!
 
-````
+
