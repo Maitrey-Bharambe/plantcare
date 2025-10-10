@@ -1,9 +1,0 @@
-{
-  "cron": [
-    {
-      "path": "/api/send_reminder",
-      "schedule": "* * * * *",
-      "method": "POST"
-    }
-  ]
-}
