@@ -57,6 +57,12 @@ export default function Home() {
           id: m.id,
           sender: "bot",
           text: m.response,
+          time: m.created_at
+            ? new Date(m.created_at).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : undefined,
         }));
         setMessages(formatted);
       }
@@ -66,18 +72,33 @@ export default function Home() {
 
   useEffect(scrollToBottom, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || !userId) return;
+  // handleSend accepts optional text so suggestion chips can send immediately
+  const handleSend = async (textParam) => {
+    const messageText = (
+      typeof textParam === "string" ? textParam : input
+    ).trim();
+    if (!messageText || !userId) return;
 
-    const userMessage = { id: Date.now(), sender: "user", text: input };
+    const timeNow = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const userMessage = {
+      id: Date.now(),
+      sender: "user",
+      text: messageText,
+      time: timeNow,
+    };
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    // only clear input when sending from input box
+    if (!textParam) setInput("");
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input, userId }),
+        body: JSON.stringify({ message: messageText, userId }),
       });
 
       const data = await res.json();
@@ -85,6 +106,10 @@ export default function Home() {
         id: Date.now() + 1,
         sender: "bot",
         text: data.response,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
@@ -92,6 +117,10 @@ export default function Home() {
         id: Date.now() + 1,
         sender: "bot",
         text: "Sorry, something went wrong.",
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
       setMessages((prev) => [...prev, botMessage]);
     }
@@ -162,7 +191,7 @@ export default function Home() {
                   </div>
                 </div>
               ) : (
-                messages.map(({ id, sender, text }) => (
+                messages.map(({ id, sender, text, time }) => (
                   <motion.div
                     key={id}
                     initial={{ opacity: 0, y: 20 }}
@@ -198,13 +227,37 @@ export default function Home() {
                       <div
                         className={`p-4 rounded-2xl shadow-lg ${
                           sender === "user"
-                            ? "bg-[#F8D4C8] text-[#2D411B] rounded-tr-sm"
-                            : "bg-[#4A6B2F] text-[#FBF7F5] rounded-tl-sm"
+                            ? "bg-[#F8D4C8] text-[#2D411B] text-2xl rounded-tr-sm"
+                            : "bg-[#4A6B2F] text-white text-2xl rounded-tl-sm border border-[rgba(0,0,0,0.06)]"
                         } text-left`}
                       >
                         <p className="text-sm leading-relaxed whitespace-pre-wrap text-left">
                           {text}
                         </p>
+
+                        {/* footer with time and copy icon */}
+                        <div className="mt-2 flex items-center justify-between text-[11px] opacity-60">
+                          <span>{time || ""}</span>
+                          <button
+                            onClick={() => navigator.clipboard?.writeText(text)}
+                            className="ml-2 p-1 rounded hover:bg-[rgba(0,0,0,0.03)]"
+                            title="Copy"
+                          >
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M8 16h8M8 12h8m-7-4h6"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </motion.div>
