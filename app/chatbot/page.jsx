@@ -147,10 +147,10 @@ export default function Home() {
 
           {/* Chat Messages Container */}
           <div className="flex-1 flex flex-col min-h-0">
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-[#4A6B2F] scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-[#4A6B2F] scrollbar-track-transparent text-left">
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center">
-                  <div className="bg-[rgba(255,255,255,0.05)] rounded-2xl p-8 max-w-md">
+                  <div className="bg-[rgba(255,255,255,0.05)] rounded-2xl p-8 max-w-md text-left">
                     <div className="text-6xl mb-4">🌱</div>
                     <h3 className="text-[#FBF7F5] text-xl font-semibold mb-2">
                       Welcome to Plant Care Chat!
@@ -200,9 +200,9 @@ export default function Home() {
                           sender === "user"
                             ? "bg-[#F8D4C8] text-[#2D411B] rounded-tr-sm"
                             : "bg-[#4A6B2F] text-[#FBF7F5] rounded-tl-sm"
-                        }`}
+                        } text-left`}
                       >
-                        <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap text-left">
                           {text}
                         </p>
                       </div>

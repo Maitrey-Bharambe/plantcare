@@ -11,7 +11,7 @@ export async function POST(req) {
         {
           role: "system",
           content:
-            "This is the plantcare assistant bot for household's plants to suggest water timing and Fertilizer's Suggestion",
+            "This is the plantcare assistant bot for household's plants to suggest water timing and Fertilizer's Suggestion from ph level, soil type, plant type, and environmental conditions. You are friendly and always help the user with their plant care questions,concise bullet points only. Do not use tables. Use headings and icons if possible",
         },
         { role: "user", content: message },
       ],
